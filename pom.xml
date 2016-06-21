@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany</groupId>
+    <artifactId>testproject</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Mule testproject Application</name>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mule.lib.path>D:\MuleLib\mule\</mule.lib.path>
+        <mule.version>3.8.0-M1</mule.version>        
+    </properties>
+    
+	<build>
+		<finalName>testproject</finalName>
+		<plugins>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-war-plugin</artifactId>
+		        <version>2.3</version>
+		        <configuration>
+		          <webResources>
+		            <resource>
+		              <targetPath>WEB-INF</targetPath>
+		              <directory>src/main/app</directory>
+						<includes>
+							 <include>*.xml</include>
+						</includes>
+		            </resource>
+		          </webResources>
+		          <failOnMissingWebXml>false</failOnMissingWebXml>
+		        </configuration>             
+      		</plugin>
+			<plugin>
+		        <artifactId>maven-compiler-plugin</artifactId>
+		        <version>3.1</version>
+		        <configuration>
+		          <source>${java.version}</source>
+		          <target>${java.version}</target>
+		          <encoding>utf8</encoding>
+		          <compilerArguments>
+		            <extdirs>lib</extdirs>
+		          </compilerArguments>
+		        </configuration>
+      		</plugin>				 
+		</plugins>
+	</build>
+    
+    <!-- Mule Dependencies -->
+    <dependencies>
+        <!-- Xml configuration -->
+        <dependency>
+            <groupId>com.mulesoft.muleesb</groupId>
+            <artifactId>mule-core-ee</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-core-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <!-- Xml configuration -->
+        <dependency>
+            <groupId>com.mulesoft.muleesb.modules</groupId>
+            <artifactId>mule-module-spring-config-ee</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-module-spring-config-ee-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <!-- Mule Transports -->
+        <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-file</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-transport-file-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-http</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-transport-http-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.mulesoft.muleesb.transports</groupId>
+            <artifactId>mule-transport-jdbc-ee</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-transport-jdbc-ee-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.mulesoft.muleesb.transports</groupId>
+            <artifactId>mule-transport-jms-ee</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-transport-jms-ee-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-vm</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-transport-vm-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <!-- Mule Modules -->
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-scripting</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-module-scripting-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-xml</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-module-xml-3.8.0-M1.jar</systemPath>
+        </dependency>
+        <!-- for testing -->
+        <dependency>
+            <groupId>org.mule.tests</groupId>
+            <artifactId>mule-tests-functional</artifactId>
+            <version>${mule.version}</version>
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\opt\mule-tests-functional-3.8.0-M1.jar</systemPath>
+        </dependency>
+    </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>Central</id>
+            <name>Central</name>
+            <url>http://repo1.maven.org/maven2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
+            <url>http://repository.mulesoft.org/releases/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mulesoft-release</id>
+            <name>mulesoft release repository</name>
+            <layout>default</layout>
+            <url>http://repository.mulesoft.org/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    
+</project>
+
+
