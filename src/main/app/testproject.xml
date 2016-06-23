@@ -17,6 +17,8 @@ http://www.mulesoft.org/schema/mule/servlet http://www.mulesoft.org/schema/mule/
     <flow name="testprojectFlow">
         <!-- <http:listener config-ref="HTTP_Listener_Configuration" path="Test" allowedMethods="POST" doc:name="HTTP"/> -->
         <servlet:inbound-endpoint path="Test" responseTimeout="10000" doc:name="Servlet"/>
+        <set-property propertyName="MULE_ENCODING" value="UTF-8" doc:name="Property" />
+		<byte-array-to-string-transformer doc:name="Byte Array to String"/>
         <dw:transform-message metadata:id="838915ab-810b-4c29-af43-ae0057731e2a" doc:name="Transform Message">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
