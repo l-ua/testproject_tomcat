@@ -14,21 +14,35 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd 
 http://www.mulesoft.org/schema/mule/servlet http://www.mulesoft.org/schema/mule/servlet/current/mule-servlet.xsd">
    <!--  <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/> -->
+    <spring:beans>
+    		<spring:import resource="classpath*:/applicationContext.xml"/>
+	</spring:beans>
     <flow name="testprojectFlow">
         <!-- <http:listener config-ref="HTTP_Listener_Configuration" path="Test" allowedMethods="POST" doc:name="HTTP"/> -->
         <servlet:inbound-endpoint path="Test" responseTimeout="10000" doc:name="Servlet"/>
         <set-property propertyName="MULE_ENCODING" value="UTF-8" doc:name="Property" />
 		<byte-array-to-string-transformer doc:name="Byte Array to String"/>
-        <dw:transform-message metadata:id="838915ab-810b-4c29-af43-ae0057731e2a" doc:name="Transform Message">
+        <custom-transformer returnClass="java.lang.String" encoding="UTF-8" mimeType="application/json" class="com.mule.spring.transformer.CustomJsonTransformer" doc:name="&#29992;&#20110;&#36716;&#25442;Json&#25253;&#25991;&#35831;&#27714;&#30340;Transformer"/>
+         <dw:transform-message metadata:id="838915ab-810b-4c29-af43-ae0057731e2a" doc:name="Transform Message">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
 ---
 {
-	Student: {
-		name: payload.name,
-		id: payload.id as :number
+	Students: {
+		(payload.students map ((student , indexOfStudent) -> {
+			Student: {
+				name: student.name,
+				id: student.id as :number,
+				class: student.class
+			}
+		}))
 	}
 }]]></dw:set-payload>
-        </dw:transform-message>
+        </dw:transform-message>  
+        <response>
+		    <message-properties-transformer>
+		        <add-message-property key="Content-Type" value="application/xml;charset=utf-8" />
+		    </message-properties-transformer>
+		</response>
     </flow>
 </mule>

@@ -31,6 +31,13 @@
 							 <include>*.xml</include>
 						</includes>
 		            </resource>
+		            <resource>
+		              <targetPath>WEB-INF/classes</targetPath>
+		              <directory>src/main/app/conf</directory>
+						<includes>
+							 <include>*.xml</include>
+						</includes>
+		            </resource>			            
 		          </webResources>
 		          <failOnMissingWebXml>false</failOnMissingWebXml>
 		        </configuration>             
@@ -39,8 +46,8 @@
 		        <artifactId>maven-compiler-plugin</artifactId>
 		        <version>3.1</version>
 		        <configuration>
-		          <source>${java.version}</source>
-		          <target>${java.version}</target>
+		          <source>1.8</source>
+		          <target>1.8</target>
 		          <encoding>utf8</encoding>
 		          <compilerArguments>
 		            <extdirs>lib</extdirs>
@@ -58,7 +65,7 @@
             <artifactId>mule-core-ee</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-core-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-core-${mule.version}.jar</systemPath>
         </dependency>
         <!-- Xml configuration -->
         <dependency>
@@ -66,7 +73,7 @@
             <artifactId>mule-module-spring-config-ee</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-module-spring-config-ee-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-module-spring-config-ee-${mule.version}.jar</systemPath>
         </dependency>
         <!-- Mule Transports -->
         <dependency>
@@ -74,35 +81,35 @@
             <artifactId>mule-transport-file</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-transport-file-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-transport-file-${mule.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-http</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-transport-http-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-transport-http-${mule.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.mulesoft.muleesb.transports</groupId>
             <artifactId>mule-transport-jdbc-ee</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-transport-jdbc-ee-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-transport-jdbc-ee-${mule.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.mulesoft.muleesb.transports</groupId>
             <artifactId>mule-transport-jms-ee</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-transport-jms-ee-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-transport-jms-ee-${mule.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-transport-vm-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-transport-vm-${mule.version}.jar</systemPath>
         </dependency>
         <!-- Mule Modules -->
         <dependency>
@@ -110,14 +117,14 @@
             <artifactId>mule-module-scripting</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-module-scripting-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-module-scripting-${mule.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-xml</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\mule\mule-module-xml-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\mule\mule-module-xml-${mule.version}.jar</systemPath>
         </dependency>
         <!-- for testing -->
         <dependency>
@@ -125,8 +132,48 @@
             <artifactId>mule-tests-functional</artifactId>
             <version>${mule.version}</version>
             <scope>system</scope>
-            <systemPath>D:\MuleLib\opt\mule-tests-functional-3.8.0-M1.jar</systemPath>
+            <systemPath>D:\MuleLib\opt\mule-tests-functional-${mule.version}.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-json</artifactId>
+            <version>${mule.version}</version>            
+            <scope>system</scope>
+            <systemPath>D:\MuleLib\mule\mule-module-json-${mule.version}.jar</systemPath>
+        </dependency>
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.3.0.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.0.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.0.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>19.0</version>
+		</dependency>		
+        <dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.12</version>
+		</dependency>
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.39</version>
+		</dependency>	
     </dependencies>
     
     <repositories>
