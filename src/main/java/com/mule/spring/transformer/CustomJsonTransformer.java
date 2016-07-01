@@ -10,13 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import com.mule.spring.entity.Student;
 import com.mule.spring.service.StudentService;
+import com.mule.spring.util.ExceptionUtil;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CustomJsonTransformer extends AbstractJsonTransformer {
 
 	@Autowired
     protected StudentService studentService;
+	
+	protected static Logger logger = LogManager.getLogger(CustomJsonTransformer.class);
+	
 	
 	@Override
 	public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
@@ -24,14 +32,19 @@ public class CustomJsonTransformer extends AbstractJsonTransformer {
 		String transformJsonStr = null;
 		
 		 try {
-	            String jsonMessage = message.getPayloadAsString();	            
+	            String jsonMessage = message.getPayloadAsString();	   
 	            //添加信息
-	            JSONObject jsonMap = updateStudentInfos(jsonMessage);
+	            JSONObject jsonMap = updateStudentInfos(jsonMessage);	            
 	            transformJsonStr = jsonMap.toJSONString();
+	            if(!Strings.isNullOrEmpty(transformJsonStr))
+	            {
+	            	logger.info("The json message after transformation is:" + transformJsonStr);
+	            }
 	        } catch (Exception e) {
-	        		e.printStackTrace();
+	        	 logger.error("exception message is:" + ExceptionUtil.getExceptionMessage(e));
 	        }		
-        return transformJsonStr;
+		 return null;
+		 //return transformJsonStr;
 	}
 	
 	/**
@@ -78,7 +91,8 @@ public class CustomJsonTransformer extends AbstractJsonTransformer {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
+				logger.info("updateStudentInfos method "
+						+ "exception message is:" + ExceptionUtil.getExceptionMessage(ex));
 			}	
 			return studentsJsonObj;
 	}
