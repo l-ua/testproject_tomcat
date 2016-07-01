@@ -10,13 +10,32 @@
         </Console>
         <!-- <RollingFile name="file" fileName="${logPath}/testproject.log"
             filePattern="${logPath}/testproject-%d{MM-dd-yyyy}-%i.log"> -->
-        <RollingFile name="file" fileName="${logPath}/testproject.log" 
-                 filePattern="${logPath}/testproject-%i.log" append="true" immediateFlush="true">
+        <RollingFile name="debug_file" fileName="${logPath}/testproject_debug.log" 
+                 filePattern="${logPath}/testproject_debug-%i.log" append="true" immediateFlush="true">
             <PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
-            <!-- <Policies>
-                <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="10 MB"/>
-            </Policies> -->
+             <Filters>  
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+            </Filters>  
+            <SizeBasedTriggeringPolicy size="10 MB" />
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="info_file" fileName="${logPath}/testproject_info.log" 
+                 filePattern="${logPath}/testproject_info-%i.log" append="true" immediateFlush="true">
+            <PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+            <Filters>  
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>  
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>  
+            </Filters> 
+            <SizeBasedTriggeringPolicy size="10 MB" />
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="error_file" fileName="${logPath}/testproject_error.log" 
+                 filePattern="${logPath}/testproject_error-%i.log" append="true" immediateFlush="true">
+            <PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+            <Filters>  
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
             <SizeBasedTriggeringPolicy size="10 MB" />
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
@@ -36,7 +55,9 @@
         
         <Root level="INFO">
         	<AppenderRef ref="Console"/>
-            <AppenderRef ref="file" />
+            <AppenderRef ref="debug_file" />
+            <AppenderRef ref="info_file" />
+            <AppenderRef ref="error_file" />
         </Root>
     </Loggers>   
 </Configuration>
